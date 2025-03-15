@@ -61,24 +61,30 @@ total/num_measurements
 
 # P8 Using woa_long, find the mean water temperature globally in the twilight zone.
 View(woa_long)
-depth_m <- woa_long[, 3]
-woa_long[woa_long$depth_m >= 200 &
-           depth_m <= 1000]
-sum(twilight_temps_long, na.rm = TRUE)
-
-num_measurements_long <- (sum(?is.na(woa_long[, 27:49])))
-total_long/num_measurements_long
+mean(temp_c[1,])
+twilight_temps <- woa_long[woa_long$depth_m >= 200 & woa_long$depth_m <= 1000, 4]
+mean(twilight_temps)
+#6.573227
 
 # P9 Compare and contrast your solutions to P8 and P9.
-
+#the solutions are the same but the process of getting it in P8 is more simple than P7
 
 # P10 Create a variable called mariana_temps. Filter woa_long to the rows in the
 # location nearest to the coordinates listed in the in-class instructions.
+mariana_lat <- woa_long[woa_long$latitude == 11.5, ]
+mariana_long <- woa_long[woa_long$longitude == 142.5, ]
+mariana_lat
+mariana_long
+mariana_temps <- woa_long[woa_long$latitude == 11.5 & woa_long$longitude == 142.5, ]
+mariana_temps
 
-
-# P11 Interpret your temperature-depth profile. What's the temperature at the surface? How about in the deepest parts? Over what depth range does temperature change the most?
-
-# ggplot is a tool for making figures, you'll learn its details in COMM101
+#P11 Interpret your temperature-depth profile. What's the temperature at the
+#surface? How about in the deepest parts? Over what depth range does temperature
+#change the most?
+#The temperature at the surface is close to 28 degrees celsius.
+#The deepest point is at a low temperature close to 2 degrees celsius. I would
+#say that the depth range with the most temperature change is from depths 0 to 300 meters
+#ggplot is a tool for making figures, you'll learn its details in COMM101
 ggplot(mariana_temps, aes(temp_c, depth_m)) +
   geom_path() +
   scale_y_reverse()
